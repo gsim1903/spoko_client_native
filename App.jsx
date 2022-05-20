@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View  } from 'react-native'
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { Appbar } from 'react-native-paper'
+import { Appbar, Card } from 'react-native-paper'
 import Articles from './modules/Articles'
+
 
 Articles
 
@@ -11,12 +12,28 @@ const App = () => {
   useEffect(() => {
     Articles.index()
   }, [])
-
-  let categories
-
+  
 if (articles) {
-  categories = Object.keys(articles).map((category) => {
-    return <Text key={category}><> </>{category}</Text>
+  content = Object.keys(articles).map((category) => {
+    return (
+      <>
+    {articles[category].map((article) => {
+      <Card>
+      <Card.Title title={article.title} subtitle="Card Subtitle" left={LeftContent} />
+      <Card.Content>
+        <Title>{article.title} title</Title>
+        <Paragraph>{article.body}</Paragraph>
+      </Card.Content>
+      <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
+      <Card.Actions>
+        <Button>Cancel</Button>
+        <Button>Ok</Button>
+      </Card.Actions>
+    </Card>
+
+    })}
+    </>
+    )
   })
 }
   return (
